@@ -1,45 +1,68 @@
 # TYSnapshotScroll
 
-## 一句代码保存截图,将scrollView相关的页面保存为图片,支持UIScrollView,UITableView,UICollectionView,UIWebView,WKWebView。支持iOS11
 
-[![](https://img.shields.io/badge/Supported-iOS7-4BC51D.svg?style=flat-square)](https://github.com/TonyReet/TYSnapshotScroll)
-[![](https://img.shields.io/badge/Objc-compatible-4BC51D.svg?style=flat-square)](https://github.com/TonyReet/TYSnapshotScroll)
+English|[简体中文](README_CN.md)
+## Save the scroll view page as an image,support UIScrollView,UITableView,UICollectionView,UIWebView,WKWebView.(Support iOS13)
+
+[![](https://img.shields.io/badge/Supported-iOS8-4BC51D.svg?style=flat-square)](https://github.com/TonyReet/TYSnapshotScroll)  [![](https://img.shields.io/badge/Objc-compatible-4BC51D.svg?style=flat-square)](https://github.com/TonyReet/TYSnapshotScroll)
+
+- [x] iOS13   
+- [x] UITableVieW in UIScrollView     
+- [x] UIScrollView
+- [x] UITableView
+- [x] UICollectionView
+- [x] WKWebView
+- [x] UIWebView
 
 
-### 方法一:cocopods
-- 1、:
+-------
++ Fix bug on iOS13,please update the lastest version(0.1.4)   
+
++ Pelease use real machine to debug, simulator has some problems   
+-------
+### Cocoapods
+- 1、Add the following line to your Podfile:
 
 ```objc
-在Podfile文件里面添加:pod 'TYSnapshotScroll'
+pod 'TYSnapshotScroll'
 ```
-- 2、:对应文件添加头文件
+- 2、Then, run the following command:
+
+```objc
+pod install
+```
+
+- 3、import .h file:   
+
+```objc    
+#import <TYSnapshotScroll.h>
+```
+
+- 4、if have error "Undefined symbols for architecture arm64"
+add "$(inherited)" into "Other Linker Flags"
+
+### Manually
+- 1、download "TYSnapshotScroll"，drag "TYSnapshotScroll" into the project
+
+- 2、import .h file:   :
 
 ```objc
 #import "TYSnapshotScroll.h"
+```
 
 
-//在需要截图的地方调用此方法
+
+###Usage
+```objc
 [TYSnapshotScroll screenSnapshot:yourView finishBlock:^(UIImage *snapShotImage) {
-        doSomething
+        //doSomething
     }];
 ```
 
-### 方法二:手动添加
-- 1、引入头文件:
+normal:
+![TYSnapshotScroll-w240](https://s1.ax1x.com/2020/04/22/JUZHTU.gif)        
 
-```objc
-#import "TYSnapshotScroll.h"
-```
-- 2、使用以下方法
-
-```objc
-//在需要截图的地方调用此方法
-[TYSnapshotScroll screenSnapshot:yourView finishBlock:^(UIImage *snapShotImage) {
-        doSomething
-    }];
-```
-
-
-![TYSnapshotScroll](Snapshot.gif)
+UITableView in UIScrollView:    
+![TYSnapshotScroll-w240](https://s1.ax1x.com/2020/04/22/JUZSIg.gif)    
 
 

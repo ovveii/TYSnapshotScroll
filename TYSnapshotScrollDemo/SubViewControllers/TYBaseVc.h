@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TYSnapshotScroll.h"
+#import <TYSnapshotScroll.h>
+#import <TYSnapshotManager.h>
 
 @interface TYBaseVc : UIViewController
+
+@property (nonatomic, assign) BOOL isLongImage;
 
 //需要截图的view
 @property (nonatomic,strong) UIView *snapView;
@@ -31,4 +34,14 @@
  菊花停止
  */
 - (void)stopAnimating;
+
+/**
+点击保存截图
+*/
+- (void)snapshotBtnClick;
+
+/**
+截完图的跳转
+*/
+- (void)pushToPreVcWithImage:(UIImage *)snapshotImage;
 @end

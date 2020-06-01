@@ -27,21 +27,20 @@
     self.webView.scrollView.bounces = NO;
     self.webView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
-    
-    NSString *urlStr = @"https://www.meituan.com";
+
+    NSString *urlStr = self.isLongImage?@"https://worlds-highest-website.com/zh/":@"https://www.meituan.com";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];//超时时间10秒
     //加载地址数据
     [self.webView loadRequest:request];
     
     self.snapView = self.webView;
     [self startAnimating];
+    
+    [TYSnapshotManager defaultManager].maxScreenCount = 40;
+    [TYSnapshotManager defaultManager].delayTime = 0.3;
 }
 
 #pragma mark - WKNavigationDelegate
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
-    [self startAnimating];
-}
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
     [self stopAnimating];
 }

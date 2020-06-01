@@ -12,29 +12,37 @@
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 
+@property (nonatomic,strong) UILabel *label;
+
 @end
 
 @implementation TYScrollViewVc
 
 
 - (void)subClassInit {
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    self.scrollView = [[UIScrollView alloc] initWithFrame:screenBounds];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView.backgroundColor = [UIColor whiteColor];
-    self.scrollView.contentSize = CGSizeMake(screenBounds.size.width, screenBounds.size.height*3);
-    [self.view addSubview:_scrollView];
+    [self.view addSubview:self.scrollView];
 
     self.snapView = self.scrollView;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, self.scrollView.contentSize.height)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0)];
     label.text = @"";
     label.numberOfLines = 0;
     label.textColor = [UIColor blackColor];
     label.font = [UIFont systemFontOfSize:14.0];
     
-    for (int index = 0; index < 400; index++) {
+    NSInteger indexCount = self.isLongImage?4000:400;
+    for (int index = 0; index < indexCount; index++) {
         label.text = [label.text stringByAppendingString:[NSString stringWithFormat:@"我是第%@个测试文本,",@(index)]];
     }
     [self.scrollView addSubview:label];
+    
+    self.label = label;
+    
+    [self.label sizeToFit];
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.label.frame.size.height + 10);
 }
+
 @end

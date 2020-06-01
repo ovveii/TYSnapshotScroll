@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "TYBaseViewController.h"
+#import "TYLongViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,10 +20,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    UITabBarController *tabbarVc = [[UITabBarController alloc] init];
     
-    UINavigationController *navigationVc = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
+    TYBaseViewController *baseViewController = [TYBaseViewController new];
+    UINavigationController *navigation1 = [[UINavigationController alloc] initWithRootViewController:baseViewController];
+    navigation1.tabBarItem.title = @"基本使用";
+    navigation1.tabBarItem.image = [UIImage imageNamed:@"screenshot"];
+    navigation1.tabBarItem.selectedImage = [UIImage imageNamed:@"screenshot"];
+    [tabbarVc addChildViewController:navigation1];
     
-    self.window.rootViewController = navigationVc;
+    TYLongViewController *longViewController = [TYLongViewController new];
+    UINavigationController *navigation2 = [[UINavigationController alloc] initWithRootViewController:longViewController];
+    navigation2.tabBarItem.title = @"截取长图";
+    navigation2.tabBarItem.image = [UIImage imageNamed:@"screenshotLong"];
+    navigation2.tabBarItem.selectedImage = [UIImage imageNamed:@"screenshotLong"];
+    
+    [tabbarVc addChildViewController:navigation2];
+
+    self.window.rootViewController = tabbarVc;
+    
     return YES;
 }
 

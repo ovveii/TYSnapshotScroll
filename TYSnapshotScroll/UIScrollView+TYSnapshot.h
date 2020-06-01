@@ -8,12 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^TYSnapshotFinishBlock)(UIImage *snapshotImage);
+
 @interface UIScrollView (TYSnapshot)
 
-- (void )screenSnapshot:(void(^)(UIImage *snapShotImage))finishBlock;
 
-+(UIImage *)screenSnapshotWithSnapshotView:(UIView *)snapshotView;
+- (void )screenSnapshotNeedMask:(BOOL)needMask addMaskAfterBlock:(void(^)(void))addMaskAfterBlock finishBlock:(TYSnapshotFinishBlock )finishBlock;
 
-+(UIImage *)screenSnapshotWithSnapshotView:(UIView *)snapshotView snapshotSize:(CGSize )snapshotSize;
+// 是否是大图
+- (BOOL )isBigImageWith:(CGSize )contentSize;
+
+// 截图大图
+- (void )snapshotBigImageWith:(UIView *)snapshotMaskView contentSize:(CGSize )contentSize oldContentOffset:(CGPoint )oldContentOffset finishBlock:(TYSnapshotFinishBlock )finishBlock;
+
+/// 获取子scrollView的内容的多余高度
+/// @param finishBlock 结束回调
+- (instancetype )subScrollViewTotalExtraHeight:(void(^)(CGFloat subScrollViewExtraHeight))finishBlock;
 @end
 

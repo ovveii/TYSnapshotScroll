@@ -1,14 +1,14 @@
 //
-//  PreviewVc.m
+//  TYPreviewVc.m
 //  TYSnapshotScroll
 //
 //  Created by TonyReet on 2017/11/24.
 //  Copyright © 2017年 TonyReet. All rights reserved.
 //
 
-#import "PreviewVc.h"
+#import "TYPreviewVc.h"
 
-@interface PreviewVc ()
+@interface TYPreviewVc ()
 
 @property (nonatomic,strong) UIScrollView *scrollView;
 
@@ -16,9 +16,29 @@
 
 @property (nonatomic,strong) UIImage *image;
 
+@property (nonatomic,strong) UIImage *destImage;
+
+@property (nonatomic,assign) CGRect sourceTile;
+
+@property (nonatomic,assign) CGRect destTile;
+
+@property (nonatomic,assign) CGFloat imageScale;
+
+@property (nonatomic,assign) CGSize sourceResolution;
+
+@property (nonatomic,assign) CGFloat sourceTotalPixels;
+
+@property (nonatomic,assign) CGFloat sourceTotalMB;
+
+@property (nonatomic,assign) CGSize destResolution;
+
+@property (nonatomic,assign) CGContextRef destContext;
+
+@property (nonatomic,assign) CGFloat sourceSeemOverlap;
+
 @end
 
-@implementation PreviewVc
+@implementation TYPreviewVc
 
 
 - (instancetype)init:(UIImage *)image
@@ -33,12 +53,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self adjustsScrollViewInset];
-    
     [self initView];
 
+    [self adjustsScrollViewInset];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存截图" style:UIBarButtonItemStylePlain target:self action:@selector(saveImage)];
 }
+
 - (void)adjustsScrollViewInset{
     if (@available(iOS 11.0, *)) {
         self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -55,13 +76,18 @@
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.scrollView = [UIScrollView new];
-    
     [self.scrollView addSubview:self.imageView];
 
     [self.view addSubview:self.scrollView];
 
     CGRect scrollViewFrame = self.view.bounds;
-    scrollViewFrame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    //获取状态栏的rect
+    CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
+    //获取导航栏的rect
+    CGRect navRect = self.navigationController.navigationBar.frame;
+    
+    scrollViewFrame.origin.y = statusRect.size.height + navRect.size.height;
+    scrollViewFrame.size.height -= scrollViewFrame.origin.y;
     self.scrollView.frame = scrollViewFrame;
     
     CGFloat height =  self.image.size.height;

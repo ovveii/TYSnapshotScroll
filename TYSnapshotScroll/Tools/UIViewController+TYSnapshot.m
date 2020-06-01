@@ -13,6 +13,7 @@
 + (UIViewController *)currentViewController {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     UIViewController *vc = keyWindow.rootViewController;
+    
     while (vc.presentedViewController) {
         vc = vc.presentedViewController;
         
@@ -22,7 +23,9 @@
             vc = [(UITabBarController *)vc selectedViewController];
         }
     }
+    
     return vc;
 }
+
 
 @end
